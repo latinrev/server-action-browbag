@@ -1,0 +1,10 @@
+Server actions in NextJs are at their core a way to perform server mutations with no boilerplate or additional setup, they are an integration of react actions, and aim to be a built-in solution for Nextjs.
+
+No hard refreshes, no useEffects, less lifecycles,being able to interact with the UI without disrupting the users is really important, we tend to rely heavily on lifecycles for these matters, server actions provide a way to seemlesly react to user information and update accordingly based on tags and paths allowing for better SSR and performance.
+They allow for progressive enhancement in other ways overpowered no javascript forms, basically allowing the user to interact with the form even if everything else goes wrong
+
+They are deeply  integrated with Nextjs Cache and revalidation system, when any action is created we have a couple of handlers that we can use to update and revalidate any cached keys or data that shpuld change
+We can have multiple server actions enabled per route, meaning we don’t need to have to specify different api routes for each post request we would need to call. 
+On the server side example we have an server side rendered form and list
+One problem that I had using this kinds of form is that because of lack of interactivity since everything is server side rendered I didn’t have a way to disable the submit button preventing the user of spamming it
+I’ve since then discovered the   const { pending } = experimental_useFormStatus(); hook, which essentially allows us to check for form submission status inside a component (this has to be clientside since we cannot add interactivity handlers inside server components), this would have to be the only piece of client side content we would need inside the component
